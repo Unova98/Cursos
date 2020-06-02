@@ -1,16 +1,13 @@
-{% extends 'core.html' %}
-{%load static%}
-
+{% extends 'core.html'%}
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<title></title>
 </head>
 <body>
-
-	{% block content %}
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	
+{%block content%}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -96,43 +93,29 @@
             </div>
          </li>
     <form  class="form-inline my-2 my-lg-0" action= "cursos" method="POST">
-      {% csrf_token %}s
+      {% csrf_token %}
       <input class="form-control mr-sm-2" name= "buscalo" type="search" placeholder="Buscar" aria-label="Buscar">
       <button class="btn btn-outline-success my-2 my-sm-0" style="border-color: red; color:white" type="submit">Buscar por Nombre</button>
     </form>
   </div>
 </nav> 
-		<div class="container-fluid">
-    <div class="row row-cols-xs-1 row-cols-md-12 ">
-  {% for t in cursos%}
-    <div class="col mb-4">
-    <div class="card border border-dark mt-3" src="{{t.Url}}" style="height:40rem ;width: 18rem; background-color:#467af2;" >
 
-            <img src="https://i.ibb.co/NSrkF9X/ofimatica.jpg" class="card-img-top"  alt="...">
-          <div class="card-body">
-            <h5 class="card-title" style="color: black;">{{t.Curso}}</h5>
-            <p class="card-text " style="color: black">Curso impartido por {{t.Docente}} en el aula {{t.Aula}} a las {{t.Hora}}.
-            <p style="color: black">Fecha de inicio: {{t.Fecha}}</p>
-            <p style="color: black">Curso para {{t.Ingenieria}}</p>
-            <form action="cursosreg" method="POST">
-              {% csrf_token %}
-              <button href="#" class="btn btn-dark">Registrarse</button>
-              <input style="display: none" type="" name="buscalo" value="{{t.id}}">
-            </form>
-            
-            </div>
-        </div>
+{%for t in cursosreg%}
+
+<div class="container-fluid mt-3">
+<form method="POST" action="postreg">
+	<h1>Registro para el curso de {{t.Curso}} impartido por el docente {{t.Docenste}}</h1>
+	{%csrf_token%}
+	<p><input type="" placeholder="Nombre" name="name"></p>
+	<p><input type="" placeholder="Apellido Paterno" name="lastnameP"></p>
+	<p><input type="" placeholder="Apellido Materno" name="lastnameM"></p>
+	<p><input type="" placeholder="Correo Electronico" name="email"></p>
+	<input type="" name="buscalo" style="display: none" value="{{t.id}}">
+	<button class="btn btn-dark mt-3">Registrarse en el curso de {{t.Curso}}</button>
+	
+</form>
 </div>
-
-  {% endfor %}
-  </div>
-  </div>
-
-
-	{%endblock%}
-	
-	
+{%endfor%}
+{%endblock%}
 </body>
-
 </html>
-       
